@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="referrer" content="no-referrer">
+    <title>@yield('title', 'RISE LIMS')</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html, body { height: 100%; margin: 0; }
+        .bg-video { position: fixed; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+        .bg-overlay { position: fixed; inset: 0; background: rgba(10, 20, 40, .55); z-index: -1; }
+
+        .login-wrap { min-height: 100%; display: flex; align-items: center; justify-content: space-between;
+                      gap: 2rem; padding: 2rem 5vw; }
+
+        .brand-block { display: flex; align-items: center; gap: 2rem; color: #fff; flex: 1; min-width: 0; }
+        .brand-block img { width: 300px; height: 262px; flex-shrink: 0; object-fit: contain; }
+        .brand-text { font-size: clamp(1.4rem, 2.2vw, 2.1rem); font-weight: 300; line-height: 1.45; max-width: 480px;
+                      text-shadow: 0 2px 12px rgba(0, 0, 0, .5); }
+        .brand-text strong { font-weight: 700; }
+
+        .login-card { width: 100%; max-width: 400px; padding: 2.25rem; flex-shrink: 0;
+                      background: rgba(255, 255, 255, .12); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+                      border: 1px solid rgba(255, 255, 255, .25); border-radius: 18px; color: #fff;
+                      box-shadow: 0 10px 40px rgba(0, 0, 0, .35); }
+        .login-card .form-control { background: rgba(255, 255, 255, .85); border: 0; padding: .7rem .9rem; }
+        .login-card a { color: #cfe3ff; text-decoration: none; }
+        .login-card a:hover { text-decoration: underline; }
+
+        @media (max-width: 991.98px) {
+            .login-wrap { flex-direction: column; justify-content: center; padding: 2rem 1rem; }
+            .brand-block { flex: none; flex-direction: column; text-align: center; gap: 1rem; }
+            .brand-block img { width: 200px; height: auto; }
+            .brand-text { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <video class="bg-video" autoplay muted loop playsinline>
+        <source src="{{ asset('media/login-bg.mp4') }}" type="video/mp4">
+    </video>
+    <div class="bg-overlay"></div>
+
+    <div class="login-wrap">
+        <div class="brand-block">
+            <img src="{{ asset('media/rise_logo.png') }}" alt="RISE" width="300" height="262">
+            <div class="brand-text">
+                <strong>RISE</strong> is a transdisciplinary research program working at the
+                intersections of health, environment, and water and sanitation.
+            </div>
+        </div>
+
+        <div class="login-card">
+            @yield('card')
+        </div>
+    </div>
+</body>
+</html>
