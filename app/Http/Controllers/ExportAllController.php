@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\DB;
  */
 class ExportAllController extends Controller
 {
+    /** Module keys that are NOT part of "Download all exports (ZIP)". */
+    private const EXCLUDE = [
+        'kelolamenu', 'ref_allsample', 'ref_consumables', 'ref_destination', 'ref_dnacontrol',
+        'ref_location', 'ref_objective', 'ref_person', 'ref_sampletype', 'ref_shipping',
+        'ref_unproc_sample', 'ref_vessel',
+    ];
+
     public function manifest(Request $request)
     {
         // menu urls this user's level may open (same rule as ModuleController / CheckMenuAccess)
@@ -31,23 +38,26 @@ class ExportAllController extends Controller
             if (! is_array($def) || ($def['custom'] ?? false) || ! isset($def['table'])) {
                 continue;   // pages with their own controller are covered by Reports below
             }
+            if (in_array(strtolower($key), self::EXCLUDE, true)) {
+                continue;
+            }
             if (! isset($allowed[strtolower($key)])) {
                 continue;
             }
 
             $title = $def['title'] ?? $key;
             $files[] = [
-                'folder' => 'modules/' . $key,
+                'folder' => 'modules',
                 'label'  => $title,
                 'url'    => route('module.export', $key),
-                'name'   => $key,
+                'name'   => config('export_names', [])[$key] ?? $key,
             ];
             foreach (array_keys($def['exports'] ?? []) as $variant) {
                 $files[] = [
-                    'folder' => 'modules/' . $key,
+                    'folder' => 'modules',
                     'label'  => $title . ' (' . $variant . ')',
                     'url'    => route('module.export.variant', [$key, $variant]),
-                    'name'   => $key . '_' . $variant,
+                    'name'   => config('export_names', [])[$key . ':' . $variant] ?? ($key . '_' . $variant),
                 ];
             }
         }
@@ -61,7 +71,7 @@ class ExportAllController extends Controller
 
             if (isset($cfg['sheets'])) {
                 $files[] = [
-                    'folder' => 'reports/' . $key,
+                    'folder' => 'reports',
                     'label'  => $title,
                     'url'    => url('m/' . $key . '/export'),
                     'name'   => $key,
@@ -69,7 +79,7 @@ class ExportAllController extends Controller
             }
             foreach ($cfg['types'] ?? [] as $id => $type) {
                 $files[] = [
-                    'folder' => 'reports/' . $key,
+                    'folder' => 'reports',
                     'label'  => $title . ' - ' . $type['label'],
                     'url'    => url('m/' . $key . '/export') . '?' . http_build_query(['rep' => (string) $id]),
                     'name'   => $key . '_' . $id,

@@ -1,0 +1,85 @@
+<?php
+
+/**
+ * Pemetaan nama file export -> nama file LIMS lama (case-sensitive).
+ *
+ * Key   : key module di config/modules.php (atau 'module:variant' untuk tombol export tambahan).
+ * Value : nama dasar file TANPA tanggal & ekstensi. Hasil: <Value>_YYYYMMDD.csv|xlsx
+ *
+ * Module yang tidak ada di sini memakai nama default (key module).
+ * Nama file laporan (config/reports.php) sudah memakai nama lama, tidak perlu di sini.
+ */
+return [
+
+    'dictionary'                       => 'Dictionary_reports',
+    'dna_aliquotting'                  => 'DNA_Aliquotting',
+    'dna_concentration'                => 'DNA_Concentration',
+    'dna_extraction'                   => 'DNA_Extraction',
+    'dna_nanopore_result'              => 'DNA_nanopore_result',
+    'dna_sample_analysis'              => 'DNA_Sample_Analysis',
+    'dna_sample_control'               => 'DNA_Sample_Control',
+    'freezer_in'                       => 'Freezer_Sample_IN',
+    'freezer_out'                      => 'Freezer_Sample_OUT',
+    'freezer_out:usedup'               => 'Freezer_Sample_UsedUP',
+    'nhmrc_blank_in'                   => 'NHMRC_Blank-In(Idexx)',
+    'nhmrc_bootsocks_after'            => 'NHMRC_BT_weights_after',
+    'nhmrc_bootsocks_before'           => 'NHMRC_BT_weights_before',
+    'nhmrc_bootsocks_stomacher'        => 'NHMRC_BT_stomacher',
+    'nhmrc_idexx_in'                   => 'NHMRC_idexx_in_(Water)',
+    'nhmrc_idexx_out'                  => 'NHMRC_idexx_out_(All)',
+    'nhmrc_macconkey_in'               => 'NHMRC_macconkey_in',
+    'nhmrc_macconkey_out'              => 'NHMRC_macconkey_out',
+    'nhmrc_metagenomics_br'            => 'NHMRC_Metagenomics_(Bootsocks_&_HandRinse)',
+    'nhmrc_metagenomics_food'          => 'NHMRC_Metagenomics_(Food)',
+    'nhmrc_moisture_24'                => 'NHMRC_moisture_24h',
+    'nhmrc_moisture_48'                => 'NHMRC_moisture_48h',
+    'nhmrc_moisture_72'                => 'NHMRC_moisture_72h',
+    'nhmrc_moisture_initial'           => 'NHMRC_moisture_initial',
+    'nhmrc_sample_entry'               => 'NHMRC_SampleEntry_(HandRinse)',
+    'nhmrc_sample_prep'                => 'NHMRC_FOOD_Sample_Prep',
+    'nhmrc_sample_reception'           => 'NHMRC_sample_reception',
+    'o2a_mosquito_identifications'     => 'O2A_Mosquito_Identifications',
+    'o2a_sample_logging'               => 'O2A_Sample_Logging',
+    'o2a_sample_reception'             => 'O2A_Sample_Receipt',
+    'o2b_blank_in'                     => 'O2B_Blank-In(Endetec-Idexx)',
+    'o2b_bootsocks_after'              => 'O2B_BOOTSOCKS_weights_after',
+    'o2b_bootsocks_before'             => 'O2B_BOOTSOCKS_weights_before',
+    'o2b_bootsocks_stomacher'          => 'O2B_BOOTSOCKS_Stomacher',
+    'o2b_endetec_in'                   => 'O2B_Endetec_IN_(Water)',
+    'o2b_endetec_out_bs'               => 'O2B_Endetec_Out_(B-S)',
+    'o2b_endetec_out_w'                => 'O2B_Endetec_OUT_(Water)',
+    'o2b_idexx_in'                     => 'O2B_IDEXX_In_(Water)',
+    'o2b_idexx_out'                    => 'O2B_IDEXX_Out_(All)',
+    'o2b_macconkey_in'                 => 'O2B_Macconkey_IN',
+    'o2b_macconkey_out'                => 'O2B_Macconkey_OUT',
+    'o2b_metagenomics_sf'              => 'O2B_Metagenomics_(Sediment_&_Feces)',
+    'o2b_metagenomics_wb'              => 'O2B_Metagenomics_(Water_&_Bootsocks)',
+    'o2b_moisture_24'                  => 'O2B_Moisture_24h',
+    'o2b_moisture_48'                  => 'O2B_Moisture_48h',
+    'o2b_moisture_72'                  => 'O2B_Moisture_72h',
+    'o2b_moisture_initial'             => 'O2B_Moisture_Initial',
+    'o2b_other_lab'                    => 'O2B_Other_Lab_Analysis',
+    'o2b_sample_prep'                  => 'O2B_SEDIMENT_Sample_Prep',
+    'o2b_sample_reception'             => 'O2B_Sample_Reception',
+    'o3_blood_centrifuge'              => 'O3_Blood_Centrifuge',
+    'o3_blood_edta'                    => 'O3_EDTA_Aliquots',
+    'o3_blood_sst'                     => 'O3_SST_Aliquots',
+    'o3_feces_aliquot'                 => 'O3_Feces_Aliquots',
+    'o3_feces_kk1'                     => 'O3_Feces_KK1',
+    'o3_feces_kk2'                     => 'O3_Feces_KK2',
+    'o3_feces_mac1'                    => 'O3_Feces_Macconkey1',
+    'o3_feces_mac2'                    => 'O3_Feces_Macconkey2',
+    'o3_filter_paper'                  => 'O3_Blood_Filter_Paper',
+    'o3_sample_reception'              => 'O3_Sample_Reception',
+    'se_sample_analysis'               => 'SE_Sample_Analysis',
+    'se_sample_ended'                  => 'SE_Sample_Ended',
+    'se_sample_reception'              => 'SE_Sample_Reception',
+    'se_sample_result'                 => 'SE_Sample_Result',
+    'se_sample_sent_other'             => 'SE_Sent_Other_Lab',
+    'wat_water_chemistry'              => 'Water_Chemistry',
+    'wat_water_microbiology'           => 'Water_Microbiology',
+    'wat_water_spectroqc'              => 'Water_Spectro_QC',
+
+    // Contoh jika ada tombol export tambahan lain (variant), tambahkan seperti ini:
+    // 'wat_water_chemistry:conversion' => 'Water_Chemistry_Conversion',
+];

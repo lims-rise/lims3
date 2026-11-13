@@ -173,6 +173,15 @@ class ModuleController extends Controller
         ];
     }
 
+    private function exportName(string $module, ?string $variant, string $ext): string
+    {
+        $key  = $variant ? "$module:$variant" : $module;
+        $base = (config('export_names', [])[$key] ?? null)
+              ?? ($variant ? "{$module}_{$variant}" : $module);
+
+        return $base . '_' . now()->format('Ymd') . '.' . $ext;
+    }
+
     public function export(Request $request, string $module, ?string $variant = null)
     {
         $def = $this->definition($module);
@@ -202,8 +211,9 @@ class ModuleController extends Controller
         $this->applySearch($query, $visible, (string) $request->query('search', ''));
         $this->applyOrder($query, $src, $visible, $override ? [] : $requested);
 
-        $base     = $variant ? ($exp['filename'] ?? $module . '_' . $variant) : $module;
-        $filename = $base . '_' . Lab::name() . '_' . now()->format('Ymd') . '.csv';
+        // $base     = $variant ? ($exp['filename'] ?? $module . '_' . $variant) : $module;
+        // $filename = $base . '_' . Lab::name() . '_' . now()->format('Ymd') . '.csv';
+        $filename = $this->exportName($module, $variant, 'csv');
         $headers  = array_map(fn ($c) => $c['csv'] ?? $c['label'], array_values($all));
 
         return response()->streamDownload(function () use ($query, $headers) {
@@ -242,7 +252,9 @@ class ModuleController extends Controller
         }
         $spreadsheet->setActiveSheetIndex(0);
 
-        $filename = $module . '_' . Lab::name() . '_' . now()->format('Ymd') . '.xlsx';
+        // $filename = $module . '_' . Lab::name() . '_' . now()->format('Ymd') . '.xlsx';
+        $filename = $this->exportName($module, null, 'xlsx');
+
 
         return response()->streamDownload(function () use ($spreadsheet) {
             (new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet))->save('php://output');
